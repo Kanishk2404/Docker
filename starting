@@ -1,0 +1,43 @@
+after installing docker desktop ->
+
+docker run -it ubuntu bash
+ls
+pwd
+apt update
+exit
+
+  docker ps        # shows running containers  
+docker ps -a     # shows all containers  
+
+  docker images
+
+  docker stop <container_id>
+docker rm <container_id>
+docker rmi <image_id>
+
+mkdir docker-hello
+cd docker-hello
+
+echo 'echo "Hello from inside Docker 🐳💥"' > hello.sh  ( incorrect because there is no shebang line ) 
+
+echo '#!/bin/bash
+echo "Hello from inside Docker 🐳💥"' > hello.sh
+
+echo -e '#!/bin/bash\n\necho "Hello from inside Docker 🐳💥"' > hello.sh  ->  this works
+
+
+Alternatively, in VS Code:
+
+Bottom right corner → Change CRLF to LF
+
+Save the file again
+
+make a file name with exactly as dockerfile ->
+FROM ubuntu
+COPY hello.sh /hello.sh
+RUN chmod +x /hello.sh
+CMD ["/hello.sh"]
+
+docker build -t hello-docker .
+docker run hello-docker
+
