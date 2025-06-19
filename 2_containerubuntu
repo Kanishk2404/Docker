@@ -1,0 +1,37 @@
+using bash inside ubuntu - > after pulling ubuntu image
+
+docker run -it ubuntu	
+
+docker run -dit --name myubuntu ubuntu -> Start named container in background
+
+docker exec -it myubuntu bash	 -> executing bash inside ubuntu container
+
+docker ps. will show all running containers.
+
+
+-d
+Detached mode: runs the container in the background.
+
+You won’t see its terminal output immediately, but the container keeps running.
+
+✅ -i
+Interactive mode: keeps STDIN open so you can interact with the container (required for bash or shell access).
+
+✅ -t
+TTY allocation: attaches a pseudo-terminal (makes the shell look like a real terminal).
+
+Needed for commands like bash to behave properly.
+
+🧠 Together, -it lets you interact with the container via a terminal.
+
+✅ --name myubuntu
+Gives the container a custom name (myubuntu) instead of a random one.
+
+Makes it easier to reference in future commands:
+
+docker exec -it myubuntu bash
+
+docker stop myubuntu
+
+docker start myubuntu
+
