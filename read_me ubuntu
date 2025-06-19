@@ -1,1 +1,116 @@
 
+when you pull image of ubuntu is pulls the image, and when u run image of ubuntu it brings the image in running state but when you run exec -it bash ,
+you make image into container and are inside it and use it
+
+process ->
+
+✅ 1. docker pull ubuntu
+This downloads the Ubuntu image (from Docker Hub) onto your local machine.
+
+Think of this as downloading a template of Ubuntu.
+
+It doesn't run anything yet—just saves the image locally.
+
+The image is read-only and used to spin up containers.
+
+🔍 Result: You now have an Ubuntu image stored on your system.
+
+✅ 2. docker run ubuntu
+This creates and starts a new container based on the ubuntu image.
+
+BUT you didn't specify -it or a command, so:
+
+It created a container,
+
+Ran the default command (which is just /bin/bash),
+
+Exited immediately, because there was no interactive terminal (-it) to keep it open.
+
+🧠 Important: Without -d, -it, or a running command, containers exit immediately when the command finishes.
+
+🔍 Result: A container ran briefly and exited.
+
+✅ 3. docker run -dit --name myubuntu ubuntu
+Now you:
+
+Created a new container named myubuntu,
+
+Used flags:
+
+-d: run in background (detached),
+
+-i: keep STDIN open,
+
+-t: allocate a terminal.
+
+By default, it ran /bin/bash, but since it’s detached, it kept running in the background.
+
+🔍 Result: You now have a running Ubuntu container called myubuntu.
+
+✅ 4. docker exec -it myubuntu bash
+Now you:
+
+Executed (exec) a new command (bash) inside the already running container myubuntu,
+
+Used -it so that you get an interactive terminal.
+
+This drops you inside the Ubuntu shell of the running container.
+
+🔍 Result: You’re now "inside" the Ubuntu container, just like being on a Linux machine.
+
+📌 Analogy (Simple Understanding)
+Step	Action	Analogy
+pull	Download Ubuntu image	Like downloading an ISO of Ubuntu
+run	Boot a one-time Ubuntu system	Like booting from ISO but closing it instantly
+run -dit	Boot Ubuntu and leave it running	Like installing Ubuntu on a VM and leaving it running
+exec	Open terminal in the running system	Like SSHing or opening a terminal in that running VM
+
+🧠 Recap
+Image = blueprint/template
+
+Container = running instance of that blueprint
+
+docker run = creates + starts container
+
+docker exec = run commands inside a running container
+
+
+Why not just use docker run -it ubuntu every time?
+You can, and it works — but every time you do that without naming the container, Docker:
+
+Creates a brand new container, with a random name (like amazing_einstein)
+
+If you exit it, it stops
+
+You have to remember or look up the container ID to reuse it
+
+Any work done inside it (like installed packages) will disappear unless you commit or mount volumes
+
+✅ Why use --name myubuntu?
+Giving a container a name like myubuntu gives you full control and reusability:
+
+🔄 You can re-enter it any time:
+bash
+Copy
+Edit
+docker exec -it myubuntu bash
+🚀 You can start/stop it easily:
+bash
+Copy
+Edit
+docker stop myubuntu
+docker start myubuntu
+📦 It persists any changes:
+If you installed tools (e.g. nano, curl, etc.), they're still there when you return.
+
+📌 Real-life Analogy:
+Without --name	With --name myubuntu
+Like opening a new incognito tab every time	Like having a saved workspace
+You lose everything on exit	You can resume right where you left
+Random names like eager_raman	Consistent, memorable name like myubuntu
+Hard to reuse	Easy to manage with exec, stop, start
+
+🧠 Summary
+Method	Use When You Want To...
+docker run -it ubuntu	Just quickly try something once and throw it away
+docker run -dit --name myubuntu ubuntu	Build a reusable Ubuntu environment
