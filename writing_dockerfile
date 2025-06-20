@@ -1,0 +1,14 @@
+FROM - > like from where we want to put    EG -> FROM UBUNTU
+
+add keyword is used to add files to the container being built . the syntax used is ADD<source> <destination in container>
+
+FROM UBUNTU 
+ADD ./www/var/html
+
+RUN key word is used to add layers to the base image, by installing components each run statemnt adds a new layer to the docker oimage
+each run statement adds a new layer to the docker image
+
+FROM ubuntu
+RUN apt-get update
+RUN apt-get -y install apache 2
+ADD . /var/www/html
