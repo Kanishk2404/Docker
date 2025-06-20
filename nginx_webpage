@@ -20,7 +20,7 @@ docker stop  nginx-server
 
 go to home , 
 
-mkdir webpage . cd webpage .  nano index.html . 
+mkdir webpage . cd webpage .  nano index.html . chmod -R 755 webpage
 
   docker run -d -p 80:80 \
   -v /home/webpage:/usr/share/nginx/html:ro \
