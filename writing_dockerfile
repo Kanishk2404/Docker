@@ -12,3 +12,18 @@ FROM ubuntu
 RUN apt-get update
 RUN apt-get -y install apache 2
 ADD . /var/www/html
+
+CMD keyword is used to run commands on the atart of the container. These commands run only when there is no argument specicied while running the container
+
+entrypoint keyword is used strcitly to run commands the moment the container initializes the difference betweeen cmd and entrypoint , 
+entrypoint will run irrespective of the fact thether the arguemnt is there or not
+
+ENV keywords is sued to define env variables in the container tun time
+
+FROM ubuntu
+RUN apt-get update
+RUN apt-get -y install apache 2
+ADD . /var/www/html
+ENTRYPOINT apachectl 
+
+mkdir docker nano dockerfile
