@@ -1,0 +1,22 @@
+i pulled ubuntu then and nginx
+
+docker run -dit --name myubuntu ubuntu
+docker exec -it myubuntu bash
+  apt update
+since i had made my index.html inside another image it would not run
+
+
+docker cp myubuntu:/webpage/index.html .
+ 
+make index.html
+make docker file
+
+# Use the official lightweight NGINX image
+FROM nginx:alpine
+
+# Copy your HTML file into the NGINX html directory
+COPY index.html /usr/share/nginx/html/index.html
+
+docker build -t my-webpage-image .
+docker run -d -p 8080:80 --name my-webpage my-webpage-image
+  
