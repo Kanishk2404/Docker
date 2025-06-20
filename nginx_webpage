@@ -1,0 +1,62 @@
+download docker in amazon linuz using->
+
+sudo yum install docker - y
+sudo su
+
+sudo systemctl start docker
+
+docker run hello-world
+  
+pull nginx , docker pull nginx -y , check running processes using docker ps, docker ps -a . 
+now , 
+docker -d -p 80:80 --name nginx-server nginx
+
+now if you make html file and gice it port 80 it wont run because nginx already has it , and if you give 3000 port to it and make it run it wont have nginx until you make reverse proxy.
+
+so, remove nginx services so that we will run html directly inside  nginx.
+
+docker stop  nginx-server
+  docker rm nginx-server
+
+go to home , 
+
+mkdir webpage . cd webpage .  nano index.html . 
+
+  docker run -d -p 80:80 \
+  -v /home/webpage:/usr/share/nginx/html:ro \
+  --name my-nginx nginx
+
+    -d is detach to make sure it runs and gives us terminal for work, -p is port and ec2 port maps port 80 to nginx -v is volume, docker bounds
+
+  /home/webpage -> the host path
+
+  /usr/share/nginx/html -> ontainer path — it's the default directory from which Nginx serves content.
+
+So when Nginx starts inside the container, it looks in this folder for index.html.
+
+With this mount, whatever you have in /home/webpage on the host becomes accessible as /usr/share/nginx/html inside the container.
+
+  --name my-nginx
+This gives the container a human-readable name, instead of a random one like hungry_snyder.
+
+nginx
+This tells Docker to:
+
+Use the nginx image from Docker Hub.
+
+What is -v in Docker?
+-v stands for volume
+In Docker, -v is used to mount a volume, which is a way of connecting your host machine’s filesystem to a path inside the container.
+
+🧠 Think of it as:
+"Let this folder (or file) on my EC2 machine be visible inside the container — as if it’s a part of the container’s filesystem."
+
+📦 Syntax of -v
+bash
+Copy
+Edit
+-v [host path]:[container path]:[access]
+Part	Meaning
+host path	The folder/file on your EC2 instance (e.g. /home/webpage)
+container path	Where it should appear inside the container (e.g. /usr/share/nginx/html)
+access (optional)	ro = read-only, rw = read-write (default is rw)
