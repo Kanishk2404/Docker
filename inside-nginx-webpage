@@ -1,0 +1,11 @@
+mkdir nginx-web
+cd nginx-web
+nano index.html
+touch Dockerfile
+
+FROM nginx:latest
+COPY index.html /usr/share/ 
+
+docker build -t my first
+
+docker run -d -p 80:80 --name simplenginx my-first
