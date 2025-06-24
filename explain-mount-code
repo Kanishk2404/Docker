@@ -1,0 +1,63 @@
+What This Command Does — Deep Breakdown
+1. docker run -d
+docker run: Starts a new container.
+
+-d: Runs it in detached mode (in the background, like a service).
+
+2. -p 3193:80
+Maps host port 3193 to container port 80
+
+Why? Your Node app inside the container listens on port 80, and you want to access it from localhost:3193 in your browser.
+
+📌 So when you open http://localhost:3193, Docker sends that traffic to port 80 inside the container.
+
+3. --name feedback-app
+Gives your container a name (feedback-app) so you can reference it easily:
+
+bash
+Copy
+Edit
+docker logs feedback-app
+docker exec -it feedback-app sh
+4. -v feedback:/app/feedback
+Mounts a named Docker volume called feedback to the path /app/feedback inside the container
+
+This stores your feedback text files outside the container, even if the container is deleted
+
+🧠 Think of it as:
+
+"Save all user-submitted feedback to this reusable external storage location."
+
+5. -v "E:/...:/app"
+This is a bind mount — it mounts your host machine's folder (the local folder on your Windows drive) into the container at /app.
+
+That means:
+
+All the source code inside E:/dockpractice/... is used directly in the container
+
+So if you update files on your machine (like app.js), it's instantly reflected inside the container
+
+✅ This is great for development — no need to rebuild images every time
+
+6. -v /app/node_modules
+This mounts an anonymous volume to /app/node_modules
+
+Purpose: Prevents your container from trying to overwrite node_modules when you mount your source code into /app
+
+Otherwise, the host's empty node_modules would override the container’s working modules
+
+✅ Good practice when using bind mounts
+
+7. goals:latest
+This is the Docker image name you're running
+
+It contains:
+
+A Linux base image (probably node:alpine or similar)
+
+Your app's files
+
+npm install already run
+
+Your app set to start on port 80 via CMD or ENTRYPOINT
+
