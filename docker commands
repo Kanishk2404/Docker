@@ -29,3 +29,8 @@ when using wsl2 u should store project files in linux file system instead of win
 
 making it a read only docker run -d -p 3193:80 --name feedback-app -v feedback:/app/feedback -v "E:/dockpractice/data-volumes-01-starting-setup/data-volumes-01-starting-setup:/app:ro" -v /app/temp -v /app/node_modules feedback:volumes
 creating another volumes so that temp files are saved .
+
+
+docker run -d -p 3193:8000 --env-file ./.env --name feedback-app -v feedback:/app/feedback -v "E:/dockpractice/data-volumes-01-starting-setup/data-volumes-01-starting-setup:/app" -v /app/node_modules feedback-node:env
+
+ docker run -d -p 3193:8000 --env PORT=8000  --name feedback-app -v feedback:/app/feedback -v "E:/dockpractice/data-volumes-01-starting-setup/data-volumes-01-starting-setup:/app" -v /app/node_modules feedback-node:env
