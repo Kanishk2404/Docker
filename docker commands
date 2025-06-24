@@ -1,1 +1,19 @@
 docker rmi <> - > remove images
+
+
+docker run -d -p 3000:80 <name>
+
+name and tagging -> 
+
+docker run -p 3192:80 -d --name hello 2938210cdbf930f01e29548055e2ef11221a6e261955d1fa43151fef20b14dd2 -> gives name hello to the container 
+use docker start to run again the container and remember the data is saved if we stop and re run again but the data of the container will be lost if we remove it and run again.
+
+docker start -a - i <> -> for python 
+
+docker build -t goals:latest .  -> gives the name as goals and tag latest to the container .
+
+docker run -p  3192:80 --rm -d --name lastone 2938210cdbf930f01e29548055e2ef11221a6e261955d1fa43151fef20b14dd2 
+
+docker run -d -p <host-port>:<container-port> --name <container-name> -v <volume-name>:/app/feedback -v "<local-folder-path>:/app" -v /app/node_modules <image-name>
+
+docker run -d -p 3193:80 --name feedback-app -v feedback:/app/feedback -v "E:/dockpractice/data-volumes-01-starting-setup/data-volumes-01-starting-setup:/app" -v /app/node_modules goals:latest
