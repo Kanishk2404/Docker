@@ -1,0 +1,9 @@
+environment variables
+
+in doker file add
+
+ENV PORT 80
+
+EXPOSE $PORT 
+
+or just make .env and add port over there like PORT 8000 and then run the --env-file ./.ebv cinnabd
