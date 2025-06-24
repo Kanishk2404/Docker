@@ -1,0 +1,12 @@
+1) use host.docker.internal in place of link to connect 
+
+or use 2 containers to communicate ->
+
+docker pull mongo
+docker run mongo -d --name mongodb mongo
+
+docker inpect mongodb, copy ip address and update in the path of connection 
+
+after updating build again docker build -t favorites-node 
+
+docker run -d -p 3000:3000 -rm favorites favorites-node
