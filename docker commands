@@ -17,3 +17,11 @@ docker run -p  3192:80 --rm -d --name lastone 2938210cdbf930f01e29548055e2ef1122
 docker run -d -p <host-port>:<container-port> --name <container-name> -v <volume-name>:/app/feedback -v "<local-folder-path>:/app" -v /app/node_modules <image-name>
 
 docker run -d -p 3193:80 --name feedback-app -v feedback:/app/feedback -v "E:/dockpractice/data-volumes-01-starting-setup/data-volumes-01-starting-setup:/app" -v /app/node_modules goals:latest
+
+use nodemon while using a nodejs image so as to update server automatically, update in package.json
+  "scripts": {"start" : "nodemon server.js"},
+
+"devDependencies": {"nodemon": "2.0.4"}
+CMD ["npm", "start"] - updated run command for dockerfile after updating nodemon, why to use nodemon? to automatially restart the server after nay changes .
+
+when using wsl2 u should store project files in linux file system instead of windows so use -L while using script
