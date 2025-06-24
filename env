@@ -7,3 +7,12 @@ ENV PORT 80
 EXPOSE $PORT 
 
 or just make .env and add port over there like PORT 8000 and then run the --env-file ./.ebv cinnabd
+
+
+we can add ARG in docker fole like ARG DEFAULT_PORT 80
+ENV PORT $DEFAULT_PORT
+EXPOSE $PORT 
+
+now we can docker build -t feedback:web-app2 . or docker build -t feedback-node:dev --build-arg DEFAULT_PORT = 8000 .
+
+Place args and env below copy .. for best practices ,  1
