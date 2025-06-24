@@ -25,3 +25,7 @@ use nodemon while using a nodejs image so as to update server automatically, upd
 CMD ["npm", "start"] - updated run command for dockerfile after updating nodemon, why to use nodemon? to automatially restart the server after nay changes .
 
 when using wsl2 u should store project files in linux file system instead of windows so use -L while using script
+
+
+making it a read only docker run -d -p 3193:80 --name feedback-app -v feedback:/app/feedback -v "E:/dockpractice/data-volumes-01-starting-setup/data-volumes-01-starting-setup:/app:ro" -v /app/temp -v /app/node_modules feedback:volumes
+creating another volumes so that temp files are saved .
