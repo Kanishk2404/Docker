@@ -12,7 +12,24 @@ make docker-compose.yaml file
 version: "3.8"                      -> of docker compose specification
 services:                         -> indent by 2 blanks, direct child of services
   backend:
-  frontend:
+    build: ./backend    if already image is there then do image: and its name in other lines
+    build:
+        context: ./backend  -> folder where dockerfile is present
+        dockerfile: Dockerfile
+        args:
+            some-args: 1
+    ports:
+      - '80:80'
+    volumes:
+        - logs:/app/logs
+        - ./backend:/app -> relative path for bind mount, need not specify bind mount and anonymous
+        - /app/node_modules
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      -mongodb
+  
+frontend:
   mongodb:
     image:'mongo'  can be full link to repository
     volumes:
@@ -21,9 +38,9 @@ services:                         -> indent by 2 blanks, direct child of service
       MONGO_INITDB_ROOT_USERNAME: max
       MONGO_INITDB_ROOT_PASSWORD: secret   or u can use env_file: - ./env/mongo.env
 
-services:
+volumes:
   data:
-  
+  logs
 
 
 
