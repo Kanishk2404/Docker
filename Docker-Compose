@@ -1,0 +1,29 @@
+Writing docker compose files ->
+
+1) SERVICES 
+
+-> published ports
+-> volumes
+-> env variables
+-> networks
+
+make docker-compose.yaml file
+
+version: "3.8"                      -> of docker compose specification
+services:                         -> indent by 2 blanks, direct child of services
+  backend:
+  frontend:
+  mongodb:
+    image:'mongo'  can be full link to repository
+    volumes:
+      - data:/data/db:ro , ro is optional
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: max
+      MONGO_INITDB_ROOT_PASSWORD: secret   or u can use env_file: - ./env/mongo.env
+
+services:
+  data:
+  
+
+
+
