@@ -1,0 +1,62 @@
+create 3 containers for database(mongodb), backend(node), frontend(React)
+
+then run docker run --name mongodb --rm -d mongo
+
+docker run --name mongodb -v data:/data/db -e MONGO_INITDB_ROOT_USERNAME=max -e MONGO_INITDB_ROOT_PASSWORD=secret --rm -d --network goals-net mongo
+
+-v to save the data for goals updating, then running mongodb with the credentials for security.
+
+  `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
+
+nothing is hardcored in the above mentioned connect line  ?authSource=admin` is authorisation for mongodb, all of this is mentioned in mongodb file ,
+
+put container name in place of localhost so that containers can talk to each other, docker.host.internal only works in localhsot to work.
+
+dockerize node app, write config file, then start
+
+FROM node
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . . 
+
+EXPOSE 80
+
+ENV MONGODB_USERNAME=root 
+ENV MONGODB_PASSWORD=secret
+
+CMD ["npm", "start"]  --> updated after adding nodemon in dependencies otherwise it would be node app.js
+
+docker built -t goals-node .
+
+docker run --name goals-backend -v E:/dockpractice/multi-01-starting-setup/multi-01-starting-setup/backend:/app -v logs:/app/logs -v /app/node_modules -e MONGODB_USERNAME=max -e MONGODB_PASSWORD=secret --rm -p 80:80 --network goals-net goals-node
+
+-v to save logs, then -v E: one  is a bind mount to update the code from local host in real time and /app is the working directory then -v anonymous volume to save node_modules from getting overriden -e is the env where we stored default credentials for mongodb connect .
+have to use port -80:80 so that react can communicate as it will work in browser as well as server
+
+dockerize react ap- >
+
+FROM node
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . . 
+
+CMD ["npm", "start"]
+
+docker build -t goals-react .
+docker run -it -p 3000:3000 -v"srcpath":/app/src goals-reat.
+
+we dont change the localhost link of react to ip or container name because then it will not be able to run in browser and connect with the localhost and only work in the network we have created .
+
+
+configuring package.json file of node, add this in scripts {   "start": "nodemon -L app.js" } thenin last add this {  "devDependencies":{
+    "nodemon":"^2.0.4" }
