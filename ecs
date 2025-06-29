@@ -1,0 +1,29 @@
+1) make task definitions , name it whatever you want, like my-dockerhub-task then proceed to name
+
+name whatever u want the containers and then put your image link,
+
+then make clusters make sure the task is in this cluster only and then go to tasks in cluster then run the 
+task , it might show create, and then if you want to update any revision go to task definitions then create 
+new revision,uodate services and run taks again
+
+task definition family -> my-dockerhub-task , aws fargate
+container -1 name , node-demo , image kanishk2404/node-example-1
+add all ports and everything
+
+skip volumes nd everything for now and just create task definition
+
+clusters - >  name it, aws fargate and create, then go in it, go to task, run new task, 
+select to launch type, select task definition family to my-dockerhub-task itself,
+go t netwokring by clicking on the link of task, edit the inbound security rules by going to ec2 which the task is using
+then click on ipv4 link of it , now lets work with revision
+
+go on to local folder, make changes in the code and rebuilt the iage
+docker build -t node-dep-example1 .
+
+docker tag node-dep-example1 kanishk2404/node-example-1
+
+docker push kanishk2404/node-example-1
+
+go ot task definition then click on the task named then create new revision, everyting same as usual
+go to clusters then services
+then go to task again, click and then networking,
